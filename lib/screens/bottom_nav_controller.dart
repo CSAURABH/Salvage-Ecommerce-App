@@ -1,7 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_app/screens/login_screen.dart';
 import '../const/appColor.dart';
 import 'bottom_nav_pages/cart.dart';
 import 'bottom_nav_pages/favourite.dart';
@@ -25,17 +22,6 @@ class _BottomNavControllerState extends State<BottomNavController> {
   ];
   var _currentIndex = 0;
 
-  void logout() async {
-    FirebaseAuth.instance.signOut();
-    Navigator.popUntil(context, (route) => route.isFirst);
-    Navigator.pushReplacement(
-      context,
-      CupertinoPageRoute(
-        builder: (context) => const LoginScreen(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,17 +32,6 @@ class _BottomNavControllerState extends State<BottomNavController> {
           "SALVAGE",
           style: TextStyle(color: Colors.black),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              logout();
-            },
-            icon: const Icon(
-              Icons.logout,
-              color: Colors.black,
-            ),
-          ),
-        ],
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),

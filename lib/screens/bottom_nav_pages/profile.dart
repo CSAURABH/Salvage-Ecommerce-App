@@ -1,7 +1,12 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../login_screen.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -15,6 +20,17 @@ class _ProfileState extends State<Profile> {
   TextEditingController? _nameController;
   TextEditingController? _phoneController;
   TextEditingController? _ageController;
+
+  void logout() async {
+    FirebaseAuth.instance.signOut();
+    Navigator.popUntil(context, (route) => route.isFirst);
+    Navigator.pushReplacement(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => const LoginScreen(),
+      ),
+    );
+  }
 
   setDataToTextField(data) {
     return Column(
@@ -42,6 +58,12 @@ class _ProfileState extends State<Profile> {
         ElevatedButton(
           onPressed: () => updateData(),
           child: const Text("Update"),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            logout();
+          },
+          child: const Text("LogOut"),
         ),
       ],
     );

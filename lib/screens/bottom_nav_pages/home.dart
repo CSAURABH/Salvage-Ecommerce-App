@@ -167,6 +167,8 @@ class _HomeState extends State<Home> {
                               builder: (_) =>
                                   ProductDetails(_products[index]))),
                       child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
                         margin: const EdgeInsets.all(10),
                         elevation: 3,
                         child: Column(
@@ -174,7 +176,10 @@ class _HomeState extends State<Home> {
                             AspectRatio(
                               aspectRatio: 1.4,
                               child: Container(
-                                color: Colors.blue,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.blue,
+                                ),
                                 child: Image.network(
                                   _products[index]["product-img"][0],
                                   fit: BoxFit.cover,
