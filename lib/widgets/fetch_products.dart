@@ -17,36 +17,37 @@ Widget fetchData(String collectionName) {
       }
 
       return ListView.builder(
-          itemCount: snapshot.data == null ? 0 : snapshot.data!.docs.length,
-          itemBuilder: (_, index) {
-            // ignore: no_leading_underscores_for_local_identifiers
-            DocumentSnapshot _documentSnapshot = snapshot.data!.docs[index];
+        itemCount: snapshot.data == null ? 0 : snapshot.data!.docs.length,
+        itemBuilder: (_, index) {
+          // ignore: no_leading_underscores_for_local_identifiers
+          DocumentSnapshot _documentSnapshot = snapshot.data!.docs[index];
 
-            return Card(
-              elevation: 5,
-              child: ListTile(
-                leading: Text(_documentSnapshot['name']),
-                title: Text(
-                  "\$ ${_documentSnapshot['price']}",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.red),
-                ),
-                trailing: GestureDetector(
-                  child: const CircleAvatar(
-                    child: Icon(Icons.remove_circle),
-                  ),
-                  onTap: () {
-                    FirebaseFirestore.instance
-                        .collection(collectionName)
-                        .doc(FirebaseAuth.instance.currentUser!.email)
-                        .collection("items")
-                        .doc(_documentSnapshot.id)
-                        .delete();
-                  },
-                ),
+          return Card(
+            elevation: 5,
+            child: ListTile(
+              leading: Text(_documentSnapshot['name']),
+              title: Text(
+                "\$ ${_documentSnapshot['price']}",
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.red),
               ),
-            );
-          });
+              trailing: GestureDetector(
+                child: const CircleAvatar(
+                  child: Icon(Icons.remove_circle),
+                ),
+                onTap: () {
+                  FirebaseFirestore.instance
+                      .collection(collectionName)
+                      .doc(FirebaseAuth.instance.currentUser!.email)
+                      .collection("items")
+                      .doc(_documentSnapshot.id)
+                      .delete();
+                },
+              ),
+            ),
+          );
+        },
+      );
     },
   );
 }
